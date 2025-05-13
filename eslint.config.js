@@ -35,6 +35,7 @@ export default [
         "warn",
         { allowConstantExport: true },
       ],
+      "react/jsx-props-no-spreading": "off",
     },
   },
 ];
