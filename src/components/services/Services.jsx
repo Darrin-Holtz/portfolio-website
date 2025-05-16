@@ -4,7 +4,7 @@ import MugModelContainer from "./mug/MugModelContainer"
 import ConsoleModelContainer from "./console/ConsoleModelContainer"
 import Counter from "./Counter";
 import "./services.css"
-import { motion, useInView } from "framer-motion";
+import { motion, useInView } from "motion/react";
 
 const textVariants = {
   initial: {

@@ -85,37 +85,53 @@
     cursor: pointer;
 }
 
-@media (max-width: 1536px) {
-    .pItem {
-      gap: 50px;
+@media (max-width: 1536px){
+    .pItem{
+        gap: 50px;
     }
 }
-  
-@media (max-width: 1280px) {
-    .pText h1 {
-      font-size: 48px;
+
+@media (max-width: 1280px){
+    .pText h1{
+        font-size: 48px;
     }
 }
-  
-@media (max-width: 1024px) {
-    .pItem {
-      flex-direction: column;
+
+@media (max-width: 1024px){
+    .pItem{
+        flex-direction: column;
     }
-  
-    .pImg,
-    .pText {
-      width: 80%;
+
+    .pImage, .pText{
+        width: 100%;
     }
-  
+
+    .pText{
+        text-align: center;
+    }
+
     .pProgress {
-      bottom: 100px;
-      left: 100%;
+        bottom: 100px;
+        left: 100%;
     }
 }
-  
-@media (max-width: 768px) {
+
+@media (max-width: 768px){
+    .pImg{
+        width: 70%;
+    }
+
+    .pText{
+        text-align: center;
+        font-size: 26px;
+    }
+
+    .pText h1{
+        font-size: 40px;
+    }
+
     .pProgress {
-      width: 50px;
-      height: 50px;
+        bottom: 100px;
+        left: 100%;
     }
 }

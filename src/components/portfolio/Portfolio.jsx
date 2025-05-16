@@ -1,52 +1,51 @@
 import { useEffect, useRef, useState } from "react";
-import "./portfolio.css"
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import "./portfolio.css";
+import { motion, useInView, useScroll, useTransform } from "motion/react";
 
 const items = [
   {
     id: 1,
     img: "/p1.jpg",
     title: "Full Stack Blog Application",
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure laboriosam tempore consectetur, atque maiores culpa quia, repellat id, dicta esse fugit neque voluptatem provident itaque voluptates minima. Repudiandae, provident hic.",
+    desc: "Lorem ipsum dolor sit amet...",
     link: "/",
   },
   {
     id: 2,
     img: "/p2.jpg",
     title: "School Management System",
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure laboriosam tempore consectetur, atque maiores culpa quia, repellat id, dicta esse fugit neque voluptatem provident itaque voluptates minima. Repudiandae, provident hic.",
+    desc: "Lorem ipsum dolor sit amet...",
     link: "/",
   },
   {
     id: 3,
     img: "/p3.jpg",
     title: "Real-time Chat Application",
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure laboriosam tempore consectetur, atque maiores culpa quia, repellat id, dicta esse fugit neque voluptatem provident itaque voluptates minima. Repudiandae, provident hic.",
+    desc: "Lorem ipsum dolor sit amet...",
     link: "/",
   },
   {
     id: 4,
     img: "/p4.jpg",
     title: "Social Media Project",
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure laboriosam tempore consectetur, atque maiores culpa quia, repellat id, dicta esse fugit neque voluptatem provident itaque voluptates minima. Repudiandae, provident hic.",
+    desc: "Lorem ipsum dolor sit amet...",
     link: "/",
   },
   {
     id: 5,
     img: "/p5.jpg",
     title: "Animated Portfolio Website",
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure laboriosam tempore consectetur, atque maiores culpa quia, repellat id, dicta esse fugit neque voluptatem provident itaque voluptates minima. Repudiandae, provident hic.",
+    desc: "Lorem ipsum dolor sit amet...",
     link: "/",
   },
 ];
 
 const imgVariants = {
-  initial:{
+  initial: {
     x: -500,
     y: 500,
     opacity: 0,
   },
-
   animate: {
     x: 0,
     y: 0,
@@ -55,16 +54,15 @@ const imgVariants = {
       duration: 0.5,
       ease: "easeInOut",
     },
-  }
-}
+  },
+};
 
 const textVariants = {
-  initial:{
+  initial: {
     x: 500,
     y: 500,
     opacity: 0,
   },
-
   animate: {
     x: 0,
     y: 0,
@@ -74,45 +72,50 @@ const textVariants = {
       ease: "easeInOut",
       staggerChildren: 0.5,
     },
-  }
-}
+  },
+};
 
-const ListItem = ({item}) =>{
-  const ref = useRef();
-  const isInView = useInView(ref, { margin: "-100px" })
-  return(
+const ListItem = ({ item }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { margin: "-100px" });
+  return (
     <div className="pItem" ref={ref}>
-      <motion.div className="pImg" variants={imgVariants} animate={isInView ? "animate" : "initial"}>
-        <img src={item.img} alt="" />
+      <motion.div className="pImg">
+        <img src={item.img} alt={item.title} />
       </motion.div>
-      <motion.div className="pText" variants={textVariants} animate={isInView ? "animate" : "initial"}>
-        <motion.h1 variants={textVariants}>{item.title}</motion.h1>
-        <motion.p variants={textVariants}>{item.desc}</motion.p>
-        <motion.a variants={textVariants} href={item.link}>
+      <div className="pText">
+        <h1>{item.title}</h1>
+        <p>{item.desc}</p>
+        <a href={item.link}>
           <button>View Project</button>
-        </motion.a>
-      </motion.div>
+        </a>
+      </div>
     </div>
-  )
-}
+  );
+};
 
 const Portfolio = () => {
-  const [conatinerDistance, setContainerDistance] = useState(0)
-  const ref = useRef(null)
+  const [containerDistance, setContainerDistance] = useState(0);
+
+  const ref = useRef(null);
+
   useEffect(() => {
-    if (ref.current){
-      const rect = ref.current.getBoundingClientRect()
-      setContainerDistance(rect.left)
+    if (ref.current) {
+      const rect = ref.current.getBoundingClientRect();
+      setContainerDistance(rect.left);
     }
-  }, [])
-  const {scrollYProgress} = useScroll({target: ref})
-  const xTranslate = useTransform(scrollYProgress, [0, 1], [0, -window.innerWidth * items.length])
+  }, []);
+
+  const {scrollYProgress} = useScroll({target: ref});
+
+  const xTranslate = useTransform(scrollYProgress, [0, 1], [0, -window.innerWidth * items.length]);
+
   return (
-    <div className='portfolio' ref={ref}>
-      <motion.div className="pList" style={{ x: xTranslate}}>
-        <div className="empty" style={{ width: window.innerWidth - conatinerDistance}}/>
+    <div className="portfolio" ref={ref}>
+      <motion.div className="pList" style={{ x: xTranslate }}>
+        <div className="empty" style={{ width: window.innerWidth - containerDistance}}/>
         {items.map((item) => (
-          <ListItem item={item} key={item.id} />
+          <ListItem key={item.id} item={item} />
         ))}
       </motion.div>
       <section/>
@@ -120,14 +123,8 @@ const Portfolio = () => {
       <section/>
       <section/>
       <section/>
-      <div className="pProgress">
-        <svg width="100%" height="100%" viewBox="0 0 160 160">
-          <circle cx="80" cy="80" r="70" fill="none" stroke="#ddd" strokeWidth={20}/>
-          <motion.circle cx="80" cy="80" r="70" fill="none" stroke="#228b22" strokeWidth={20} style={{pathLength: scrollYProgress}} transform="rotate(-90 80 80)"/>
-        </svg>
-      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Portfolio
+export default Portfolio;
